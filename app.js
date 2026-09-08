@@ -3366,13 +3366,39 @@ function createCard(resource) {
 // MAIN RESOURCE RENDER
 // ============================================================
 
+const FIRST_PAINT_COUNT = 24;
+const CHUNK_SIZE = 48;
+
+let renderToken = 0;
+
+function scheduleChunk(fn) {
+
+  if (
+    typeof window.requestIdleCallback === "function"
+  ) {
+    window.requestIdleCallback(fn, { timeout: 800 });
+  } else {
+    setTimeout(fn, 0);
+  }
+}
+
+
 function renderResources() {
 
   const list = getFilteredResources();
 
+  renderToken += 1;
+
+  const token = renderToken;
+
   grid.innerHTML = list
+    .slice(0, FIRST_PAINT_COUNT)
     .map(createCard)
     .join("");
+
+  observeReveals(grid);
+
+  invalidateScrollMax();
 
   resultCount.textContent =
     `${list.length} result${list.length === 1 ? "" : "s"}`;
@@ -3389,7 +3415,45 @@ function renderResources() {
       resource => resource.type === "skill"
     ).length}+`;
 
-  observeReveals();
+  if (list.length > FIRST_PAINT_COUNT) {
+    scheduleChunk(() =>
+      appendCards(list, FIRST_PAINT_COUNT, token)
+    );
+  }
+}
+
+
+function appendCards(list, start, token) {
+
+  if (token !== renderToken) return;
+
+  if (userScrolling) {
+
+    // never mutate the grid mid-scroll — retry when calm
+
+    setTimeout(() => {
+      appendCards(list, start, token);
+    }, 200);
+
+    return;
+  }
+
+  const chunk = list.slice(start, start + CHUNK_SIZE);
+
+  if (!chunk.length) return;
+
+  grid.insertAdjacentHTML(
+    "beforeend",
+    chunk.map(createCard).join("")
+  );
+
+  observeReveals(grid);
+
+  invalidateScrollMax();
+
+  scheduleChunk(() =>
+    appendCards(list, start + CHUNK_SIZE, token)
+  );
 }
 
 
@@ -3410,7 +3474,9 @@ function renderFavorites() {
   favoritesEmpty.hidden =
     favorites.length !== 0;
 
-  observeReveals();
+  observeReveals(favGrid);
+
+  invalidateScrollMax();
 }
 
 
@@ -4197,6 +4263,20 @@ document.addEventListener(
     }
 
 
+    // Escape closes the mobile menu first
+    if (
+      event.key === "Escape" &&
+      document.body.classList.contains("nav-open")
+    ) {
+
+      event.preventDefault();
+
+      document.body.classList.remove("nav-open");
+
+      return;
+    }
+
+
     // Escape closes the modal first
     if (
       event.key === "Escape" &&
@@ -4653,9 +4733,11 @@ const revealObserver =
     : null;
 
 
-function observeReveals() {
+function observeReveals(scope) {
 
-  const cards = document.querySelectorAll(
+  const root = scope || document;
+
+  const cards = root.querySelectorAll(
     ".reveal:not(.in)"
   );
 
@@ -4686,10 +4768,35 @@ const RING_CIRC = 2 * Math.PI * 19;
 toTopRing.style.strokeDasharray = `${RING_CIRC}`;
 toTopRing.style.strokeDashoffset = `${RING_CIRC}`;
 
+let scrollMaxCache = -1;
+let scrollMaxAt = 0;
+
+function scrollMax() {
+
+  const now = Date.now();
+
+  if (
+    scrollMaxCache < 0 ||
+    now - scrollMaxAt > 500
+  ) {
+    scrollMaxCache =
+      document.documentElement.scrollHeight -
+      window.innerHeight;
+
+    scrollMaxAt = now;
+  }
+
+  return scrollMaxCache;
+}
+
+
+function invalidateScrollMax() {
+  scrollMaxCache = -1;
+}
+
+
 function updateToTop() {
-  const max =
-    document.documentElement.scrollHeight -
-    window.innerHeight;
+  const max = scrollMax();
 
   const y = window.scrollY || 0;
 
@@ -4703,10 +4810,20 @@ function updateToTop() {
 }
 
 let toTopQueued = false;
+let userScrolling = false;
+let scrollIdleTimer = null;
 
 window.addEventListener(
   "scroll",
   () => {
+
+    userScrolling = true;
+
+    clearTimeout(scrollIdleTimer);
+
+    scrollIdleTimer = setTimeout(() => {
+      userScrolling = false;
+    }, 150);
 
     if (toTopQueued) return;
 
@@ -5177,6 +5294,18 @@ $("newsletterForm").addEventListener(
     return;
   }
 
+  const backdrop = document.createElement("div");
+
+  backdrop.className = "menu-backdrop";
+
+  backdrop.setAttribute("aria-hidden", "true");
+
+  backdrop.addEventListener("click", () => {
+    setMenuOpen(false);
+  });
+
+  document.body.appendChild(backdrop);
+
   const toggle = document.createElement("button");
 
   toggle.type = "button";
@@ -5190,11 +5319,13 @@ $("newsletterForm").addEventListener(
   toggle.innerHTML =
     "<span></span><span></span><span></span>";
 
-  toggle.addEventListener("click", () => {
+  function setMenuOpen(open) {
 
-    const open = document.body.classList.toggle(
-      "nav-open"
-    );
+    if (open) {
+      document.body.classList.add("nav-open");
+    } else {
+      document.body.classList.remove("nav-open");
+    }
 
     toggle.setAttribute(
       "aria-expanded",
@@ -5205,18 +5336,31 @@ $("newsletterForm").addEventListener(
       "aria-label",
       open ? "Close menu" : "Open menu"
     );
+
+    if (open) {
+
+      document.body.style.overflow = "hidden";
+
+      if (lenis) lenis.stop();
+
+    } else {
+
+      if ($("modalBackdrop").hidden) {
+        document.body.style.overflow = "";
+      }
+
+      if (lenis) lenis.start();
+    }
+  }
+
+  toggle.addEventListener("click", () => {
+    setMenuOpen(
+      !document.body.classList.contains("nav-open")
+    );
   });
 
   nav.addEventListener("click", () => {
-
-    document.body.classList.remove("nav-open");
-
-    toggle.setAttribute("aria-expanded", "false");
-
-    toggle.setAttribute(
-      "aria-label",
-      "Open menu"
-    );
+    setMenuOpen(false);
   });
 
   actions.insertBefore(
