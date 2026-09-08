@@ -3074,11 +3074,11 @@ function logoImg(url) {
 
   return `
     <img
+      class="logo-img"
       src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=64"
       alt=""
       loading="lazy"
       decoding="async"
-      onerror="this.remove()"
     >
   `;
 }
@@ -3774,6 +3774,29 @@ async function copyText(value) {
 
   textarea.remove();
 }
+
+
+// Logo fallback is delegated here so the Content-Security-Policy
+// can stay strict (no inline handlers anywhere on the site).
+document.addEventListener(
+  "error",
+  event => {
+
+    const img = event.target;
+
+    if (
+      img &&
+      img.tagName === "IMG" &&
+      img.classList &&
+      typeof img.classList.contains === "function" &&
+      img.classList.contains("logo-img") &&
+      typeof img.remove === "function"
+    ) {
+      img.remove();
+    }
+  },
+  true
+);
 
 
 // ============================================================
