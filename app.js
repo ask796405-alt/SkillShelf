@@ -5155,6 +5155,78 @@ $("newsletterForm").addEventListener(
 
 
 // ============================================================
+// MOBILE NAV (hamburger, injected on every page)
+// ============================================================
+
+(function mobileNav() {
+
+  const actions = document.querySelector(
+    ".topbar .top-actions"
+  );
+
+  const nav = document.querySelector(
+    ".topbar nav"
+  );
+
+  if (
+    !actions ||
+    !nav ||
+    typeof nav.querySelectorAll !== "function" ||
+    typeof document.createElement !== "function"
+  ) {
+    return;
+  }
+
+  const toggle = document.createElement("button");
+
+  toggle.type = "button";
+
+  toggle.className = "nav-toggle";
+
+  toggle.setAttribute("aria-label", "Open menu");
+
+  toggle.setAttribute("aria-expanded", "false");
+
+  toggle.innerHTML =
+    "<span></span><span></span><span></span>";
+
+  toggle.addEventListener("click", () => {
+
+    const open = document.body.classList.toggle(
+      "nav-open"
+    );
+
+    toggle.setAttribute(
+      "aria-expanded",
+      String(open)
+    );
+
+    toggle.setAttribute(
+      "aria-label",
+      open ? "Close menu" : "Open menu"
+    );
+  });
+
+  nav.addEventListener("click", () => {
+
+    document.body.classList.remove("nav-open");
+
+    toggle.setAttribute("aria-expanded", "false");
+
+    toggle.setAttribute(
+      "aria-label",
+      "Open menu"
+    );
+  });
+
+  actions.insertBefore(
+    toggle,
+    actions.firstChild
+  );
+})();
+
+
+// ============================================================
 // INITIAL RENDER
 // ============================================================
 
