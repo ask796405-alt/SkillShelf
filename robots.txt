@@ -1,0 +1,7 @@
+# SkillShelf robots.txt
+# TODO: replace https://yoursite.com with your real domain in the Sitemap line.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://yoursite.com/sitemap.xml

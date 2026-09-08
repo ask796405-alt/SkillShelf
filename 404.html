@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Page not found — SkillShelf</title>
+  <meta name="description" content="That page doesn't exist. Head back to the SkillShelf." />
+  <meta name="theme-color" content="#171817" />
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=3" />
+</head>
+<body>
+  <div class="noise"></div>
+
+  <header class="topbar" id="top">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">✦</span>
+      <span>SkillShelf</span>
+    </a>
+    <nav>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#resources">Resources</a>
+      <a href="saved.html">Saved</a>
+    </nav>
+    <div class="top-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">☼</button>
+      <a class="github-btn" href="https://github.com/" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span></span> 404 · lost in the stacks</div>
+      <h1>That page <em>doesn't exist.</em></h1>
+      <p class="hero-copy">
+        The shelf you're looking for isn't here. Let's get you back to the good stuff.
+      </p>
+
+      <div class="hero-cta">
+        <a href="index.html" class="primary-btn">Back home <span>→</span></a>
+        <a href="saved.html" class="secondary-btn">Your saved shelf</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="siteFooter">
+    <div class="footer-glow" aria-hidden="true"></div>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="brand-mark">✦</span>
+            <span class="footer-word">SkillShelf</span>
+          </div>
+          <p>Copy-ready AI skills, MCP servers, UI libraries and docs — everything you need to build with AI coding agents.</p>
+          <form class="footer-news" id="newsletterForm">
+            <input type="email" id="newsletterEmail" aria-label="Email address" placeholder="you@company.com" autocomplete="email">
+            <button type="submit">Join</button>
+          </form>
+        </div>
+        <nav class="footer-cols" aria-label="Footer">
+          <div>
+            <h3>Shelf</h3>
+            <ul>
+              <li><a href="index.html?cat=AI%20Skills">AI Skills</a></li>
+              <li><a href="index.html?cat=UI%20%26%20Design">UI &amp; Design</a></li>
+              <li><a href="index.html?cat=Libraries">Libraries</a></li>
+              <li><a href="index.html?cat=MCP%20%26%20Tools">MCP &amp; Tools</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Resources</h3>
+            <ul>
+              <li><a href="https://skills.sh" target="_blank" rel="noopener noreferrer">Agent Skills</a></li>
+              <li><a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer">MCP</a></li>
+              <li><a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN Web Docs</a></li>
+              <li><a href="https://web.dev" target="_blank" rel="noopener noreferrer">web.dev</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Site</h3>
+            <ul>
+              <li><a href="index.html#skills">Skills</a></li>
+              <li><a href="index.html#resources">Resources</a></li>
+              <li><a href="saved.html">Saved</a></li>
+              <li><a href="#top">Back to top</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Info</h3>
+            <ul>
+              <li><a href="about.html">About</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="privacy.html">Privacy</a></li>
+              <li><a href="terms.html">Terms</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 SkillShelf</span>
+        <span class="footer-status"><span></span> All systems normal</span>
+        <span>299+ resources</span>
+      </div>
+    </div>
+  </footer>
+  <div class="toast" id="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js" async></script>
+  <script src="app.js" defer></script>
+</body>
+</html>

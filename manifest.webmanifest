@@ -1,0 +1,22 @@
+{
+  "name": "SkillShelf — AI Coding Resource Hub",
+  "short_name": "SkillShelf",
+  "description": "Copy-ready AI skills, MCP servers, UI libraries and docs.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f7f4",
+  "theme_color": "#171817",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

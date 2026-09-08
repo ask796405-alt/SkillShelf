@@ -1,0 +1,8 @@
+/* the humans responsible for this website */
+
+SITE: SkillShelf — a fast, minimal hub for AI coding skills, MCP servers,
+UI resources, libraries, docs and developer tools.
+
+BUILT WITH: plain HTML, CSS and JavaScript. No frameworks, no tracking.
+
+CONTACT: via the GitHub link in the site header.

@@ -1,0 +1,15 @@
+# dependencies
+node_modules/
+
+# OS + editor junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# local env (none in use, kept for safety)
+.env
+.env.local

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A fast, minimal hub for AI coding skills, MCP servers, UI resources, libraries, docs and developer tools." />
+  <title>SkillShelf — AI Coding Resource Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.google.com">
+  <link rel="prefetch" href="saved.html">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://yoursite.com/" />
+  <meta name="theme-color" content="#171817" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SkillShelf" />
+  <meta property="og:title" content="SkillShelf — AI Coding Resource Hub" />
+  <meta property="og:description" content="Discover agent skills, MCP tools, UI libraries, docs and copy-ready npx commands — all in one clean place." />
+  <meta property="og:url" content="https://yoursite.com/" />
+  <meta property="og:image" content="https://yoursite.com/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SkillShelf — AI Coding Resource Hub" />
+  <meta name="twitter:description" content="Discover agent skills, MCP tools, UI libraries, docs and copy-ready npx commands — all in one clean place." />
+  <meta name="twitter:image" content="https://yoursite.com/assets/og-image.png" />
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="style.css?v=3" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"SkillShelf","url":"https://yoursite.com/","description":"A fast, minimal hub for AI coding skills, MCP servers, UI resources, libraries, docs and developer tools.","potentialAction":{"@type":"SearchAction","target":"https://yoursite.com/index.html?q={search_term_string}","query-input":"required name=search_term_string"}}
+  </script>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <header class="topbar" id="top">
+    <a class="brand" href="#">
+      <span class="brand-mark">✦</span>
+      <span>SkillShelf</span>
+    </a>
+    <nav>
+      <a href="#skills">Skills</a>
+      <a href="#resources">Resources</a>
+      <a href="saved.html">Saved</a>
+    </nav>
+    <div class="top-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">☼</button>
+      <a class="github-btn" href="https://github.com/" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span></span> 120+ hand-picked developer resources</div>
+      <h1>Your shortcut to <em>better AI coding.</em></h1>
+      <p class="hero-copy">
+        Discover agent skills, MCP tools, UI libraries, docs, design inspiration and
+        copy-ready <code>npx</code> commands — all in one clean place.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#skills" class="primary-btn">Explore the shelf <span>↓</span></a>
+        <button class="secondary-btn" id="randomBtn">Surprise me <span>⌘ R</span></button>
+      </div>
+
+      <div class="hero-stats">
+        <div><strong id="totalCount">120+</strong><span>resources</span></div>
+        <div><strong id="skillCount">40+</strong><span>AI skills</span></div>
+        <div><strong>1-click</strong><span>copy & visit</span></div>
+      </div>
+    </section>
+
+    <section class="toolbar" id="skills">
+      <div class="search-wrap">
+        <span>⌕</span>
+        <input id="search" type="search" aria-label="Search resources" placeholder="Search skills, libraries, MCP, UI..." autocomplete="off" />
+        <button class="search-clear" id="clearSearch" type="button" aria-label="Clear search" title="Clear search" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+        <kbd>/</kbd>
+      </div>
+      <div class="filters" id="filters">
+        <div class="filter-pills" id="filterPills"></div>
+        <div class="sort-row">
+          <label for="sortSel">Sort</label>
+          <span class="select-wrap">
+            <select id="sortSel">
+              <option value="curated">Curated</option>
+              <option value="copyable">Copyable first</option>
+              <option value="az">A–Z</option>
+            </select>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <section class="content" id="resources">
+      <div class="section-head">
+        <div>
+          <p class="mini-label">THE SHELF</p>
+          <h2 id="sectionTitle">Everything you need</h2>
+        </div>
+        <span class="result-count" id="resultCount"></span>
+      </div>
+
+      <div class="resource-grid" id="resourceGrid"></div>
+      <div class="empty" id="emptyState" hidden>
+        <div class="empty-icon">⌕</div>
+        <h3>No resources found</h3>
+        <p>Try another keyword or clear the filters.</p>
+        <button class="secondary-btn" id="clearBtn">Clear search</button>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div>
+        <p class="mini-label">BUILD YOUR STACK</p>
+        <h2>Keep the good stuff<br><em>one click away.</em></h2>
+      </div>
+      <p>Save your favorites locally and come back whenever you are building your next AI-powered project.</p>
+      <a href="saved.html" class="primary-btn">View saved <span>→</span></a>
+    </section>
+
+    </section>
+  </main>
+
+  <footer class="site-footer" id="siteFooter">
+    <div class="footer-glow" aria-hidden="true"></div>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="brand-mark">✦</span>
+            <span class="footer-word">SkillShelf</span>
+          </div>
+          <p>Copy-ready AI skills, MCP servers, UI libraries and docs — everything you need to build with AI coding agents.</p>
+          <form class="footer-news" id="newsletterForm">
+            <input type="email" id="newsletterEmail" aria-label="Email address" placeholder="you@company.com" autocomplete="email">
+            <button type="submit">Join</button>
+          </form>
+        </div>
+        <nav class="footer-cols" aria-label="Footer">
+          <div>
+            <h3>Shelf</h3>
+            <ul>
+              <li><a href="index.html?cat=AI%20Skills">AI Skills</a></li>
+              <li><a href="index.html?cat=UI%20%26%20Design">UI &amp; Design</a></li>
+              <li><a href="index.html?cat=Libraries">Libraries</a></li>
+              <li><a href="index.html?cat=MCP%20%26%20Tools">MCP &amp; Tools</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Resources</h3>
+            <ul>
+              <li><a href="https://skills.sh" target="_blank" rel="noopener noreferrer">Agent Skills</a></li>
+              <li><a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer">MCP</a></li>
+              <li><a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN Web Docs</a></li>
+              <li><a href="https://web.dev" target="_blank" rel="noopener noreferrer">web.dev</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Site</h3>
+            <ul>
+              <li><a href="#skills">Skills</a></li>
+              <li><a href="#resources">Resources</a></li>
+              <li><a href="saved.html">Saved</a></li>
+              <li><a href="#top">Back to top</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Info</h3>
+            <ul>
+              <li><a href="about.html">About</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="privacy.html">Privacy</a></li>
+              <li><a href="terms.html">Terms</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 SkillShelf</span>
+        <span class="footer-status"><span></span> All systems normal</span>
+        <span>299+ resources</span>
+      </div>
+    </div>
+  </footer>
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" type="button" aria-label="Close details">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+  <div class="stackbar" id="stackBar" hidden>
+    <span class="stackbar-count" id="stackCount"></span>
+    <div class="stackbar-actions">
+      <button class="stackbar-btn primary" id="copyStackBtn">Copy all commands</button>
+      <button class="stackbar-btn" id="copyStackMdBtn">Copy as Markdown</button>
+      <button class="stackbar-btn ghost" id="clearStackBtn">Clear</button>
+    </div>
+  </div>
+  <button class="to-top" id="toTop" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 44 44" aria-hidden="true">
+      <circle class="to-top-track" cx="22" cy="22" r="19"></circle>
+      <circle class="to-top-ring" id="toTopRing" cx="22" cy="22" r="19"></circle>
+    </svg>
+    <span class="to-top-arrow">↑</span>
+  </button>
+  <div class="toast" id="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js" async></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
